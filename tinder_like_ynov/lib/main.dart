@@ -29,22 +29,61 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: //Text(widget.title)
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+      appBar: _getAppBar(),
+      body: new Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
           children: [
-            Image.asset(
-              'assets/logo.png',
-              fit: BoxFit.contain,
-              height: 32,
+            Column(
+              children: [
+                // Swipe image here
+                Image.asset(
+                  'assets/logo.png',
+                  fit: BoxFit.fill,
+                  height: MediaQuery.of(context).size.height - 512,
+                ),
+              ],
             ),
-            Container(
-              padding: const EdgeInsets.all(8.0), child: Text(widget.title)
-            )
+            _getUserInfos(),
           ],
-        ),
+        )
       ),
+    );
+  }
+
+  _getAppBar() {
+    return AppBar(
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Image.asset(
+            'assets/logo.png',
+            fit: BoxFit.contain,
+            height: 32,
+          ),
+          Container(
+            padding: const EdgeInsets.all(8.0), child: Text(widget.title)
+          )
+        ],
+      ),
+    );
+  }
+
+  _getUserInfos() {
+    return Column(
+      children: [
+        Card(
+          margin: EdgeInsets.only(left: 20, right: 20, top: 150),
+          child: Wrap(
+            children: [
+              Text('Mon prenom + Mon nom'),
+              Text('Mon email'),
+            ],
+          ),
+        )
+      ],
     );
   }
 }
