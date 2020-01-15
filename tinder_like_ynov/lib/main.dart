@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
+import 'Person.dart';
+import 'SwiperTinder.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  List persons = await loadPersons();
+  runApp(MyApp(persons));
+}
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+
+  List _personList;
+
+  MyApp(List personList) {
+    _personList = personList;
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -11,15 +23,19 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Tinder Like Ynov Evaluation'),
+      home: MyHomePage(
+        title: 'Tinder Like Ynov Evaluation',
+        personList: _personList
+      ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key key, this.title, this.personList})  : super(key: key);
 
-  final String title;
+  String title;
+  List personList;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -30,25 +46,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _getAppBar(),
-      body: new Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Column(
-              children: [
-                // Swipe image here
-                Image.asset(
-                  'assets/logo.png',
-                  fit: BoxFit.fill,
-                  height: MediaQuery.of(context).size.height - 512,
-                ),
-              ],
-            ),
-            _getUserInfos(),
-          ],
-        )
+      body: SwiperTinder(
+        widget.personList
       ),
     );
   }
@@ -56,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
   _getAppBar() {
     return AppBar(
       title: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Image.asset(
             'assets/logo.png',
@@ -68,22 +67,6 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
-    );
-  }
-
-  _getUserInfos() {
-    return Column(
-      children: [
-        Card(
-          margin: EdgeInsets.only(left: 20, right: 20, top: 150),
-          child: Wrap(
-            children: [
-              Text('Mon prenom + Mon nom'),
-              Text('Mon email'),
-            ],
-          ),
-        )
-      ],
     );
   }
 }
