@@ -2,10 +2,12 @@
 
 Evaluation Ynov dans le cadre des Ydays à la date du 15 / 01 / 2020
 Projet réalisé par l'équipe NoWaste qui contient :
+
+    - Tanguy Delacommunne
     - Jason Liebault
     - Artus Pouillet
-    - Aymeric
-    - Tanguy Delacommunne
+    - Aymeric Queret
+    
 
 # Ce qui a été réalisé :
 
